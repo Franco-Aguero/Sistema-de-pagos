@@ -1,9 +1,15 @@
 import Image from 'next/image';
-import { Button } from '../components/button';
-import { Divider } from '../components/divider';
+import { Button } from '../ui/core/button';
+import { Divider } from '../ui/core/divider';
+//import mercadopago from 'mercadopago'
+import { Elements } from '@stripe/react-stripe-js'
+import { useStripeClientSecret, useStripePromise } from '../lib/stripe'
+import {PayForm} from "../ui/components/payForm"
 
-const IndexPage = () => {
+const IndexPage = ({ mercadoPagoUrl }) => {
     const hi = () => alert("hello world");
+    const stripeClientSecret = useStripeClientSecret()
+    const stripePromise = useStripePromise()
     return (
         <div className="flex">
             <div className="flex space-x-20 mx-auto py-32">
@@ -24,6 +30,19 @@ const IndexPage = () => {
                         <span className="text-center bg-white px-4">Or pay with card</span>
                         <Divider className="z-[-1] absolute top-[13px]"/>
                     </div>   
+                    {stripeClientSecret && (
+                        <Elements
+                        stripe={stripePromise}
+                        options={{
+                            clientSecret: stripeClientSecret,
+                            appearance: {
+                            theme: 'stripe',
+                            },
+                        }}
+                        >
+                        <PayForm />
+                        </Elements>
+                    )}
                 </div>    
                 <div className="flex flex-col w-[491px]">                                {/* left */}
                     <Image
@@ -72,3 +91,36 @@ const IndexPage = () => {
     )
 }
 export default IndexPage;
+/* export async function getServerSideProps() {
+    const isProd = process.env.NODE_ENV === 'production'
+  
+    mercadopago.configure({
+      access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN,
+    })
+  
+    const { response } = await mercadopago.preferences.create({
+      items: [
+        {
+          id: '00000001',
+          currency_id: 'PEN',
+          title: 'Modern Studio with One Queen Bed',
+          quantity: 1,
+          unit_price: 132.2,
+        },
+      ],
+      external_reference: '00000001',
+      back_urls: {
+        failure: 'http://localhost:3000/thanks/failure',
+        success: 'http://localhost:3000/thanks/success',
+      },
+      binary_mode: true,
+    })
+  
+    return {
+      props: {
+        mercadoPagoUrl: isProd
+          ? response.init_point
+          : response.sandbox_init_point,
+      },
+    }
+  } */
