@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Button } from '../ui/core/button';
 import { Divider } from '../ui/core/divider';
-//import mercadopago from 'mercadopago'
+import mercadopago from 'mercadopago'
 import { Elements } from '@stripe/react-stripe-js'
 import { useStripeClientSecret, useStripePromise } from '../lib/stripe'
 import {PayForm} from "../ui/components/payForm"
@@ -15,6 +15,8 @@ const IndexPage = ({ mercadoPagoUrl }) => {
             <div className="flex space-x-20 mx-auto py-32">
                 <div className="flex flex-col w-[592px]">               {/* RIGHT */}
                     <h2 className="mb-6 text-2xl font-bold">Confirm and pay</h2>
+                    <a href={mercadoPagoUrl}>
+
                     <Button handleClic={hi} className="bg-[#01B1EA] flex justify-center items-center">
                         Pay with{' '}
                         <span className="ml-1">
@@ -26,6 +28,7 @@ const IndexPage = ({ mercadoPagoUrl }) => {
                             />
                         </span>
                     </Button>
+                    </a>
                     <div className="my-6 relative flex justify-center items-center">
                         <span className="text-center bg-white px-4">Or pay with card</span>
                         <Divider className="z-[-1] absolute top-[13px]"/>
@@ -91,7 +94,7 @@ const IndexPage = ({ mercadoPagoUrl }) => {
     )
 }
 export default IndexPage;
-/* export async function getServerSideProps() {
+export async function getServerSideProps() {
     const isProd = process.env.NODE_ENV === 'production'
   
     mercadopago.configure({
@@ -99,21 +102,21 @@ export default IndexPage;
     })
   
     const { response } = await mercadopago.preferences.create({
-      items: [
+      items: [      //items, este representa los productos que puede haber en el carrito
         {
-          id: '00000001',
-          currency_id: 'PEN',
+          id: '00000001',           //id de producto
+          currency_id: 'ARG',       //es la moneda con la que se va a cobrar
           title: 'Modern Studio with One Queen Bed',
           quantity: 1,
           unit_price: 132.2,
         },
       ],
       external_reference: '00000001',
-      back_urls: {
+      back_urls: {      //estas son las urls donde mercado pago va a redireccionar en caso de que sea exitosa o no la transaccion
         failure: 'http://localhost:3000/thanks/failure',
         success: 'http://localhost:3000/thanks/success',
       },
-      binary_mode: true,
+      binary_mode: true, //no tomes en cuenta el estado de pendiente, true es igual a, si la transaccion fue exitosa o no. no toma el pendding
     })
   
     return {
@@ -123,4 +126,4 @@ export default IndexPage;
           : response.sandbox_init_point,
       },
     }
-  } */
+  }
