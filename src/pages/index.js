@@ -7,7 +7,6 @@ import { useStripeClientSecret, useStripePromise } from '../lib/stripe'
 import {PayForm} from "../ui/components/payForm"
 
 const IndexPage = ({ mercadoPagoUrl }) => {
-    const hi = () => alert("hello world");
     const stripeClientSecret = useStripeClientSecret()
     const stripePromise = useStripePromise()
     return (
@@ -15,9 +14,9 @@ const IndexPage = ({ mercadoPagoUrl }) => {
             <div className="flex space-x-20 mx-auto py-32">
                 <div className="flex flex-col w-[592px]">               {/* RIGHT */}
                     <h2 className="mb-6 text-2xl font-bold">Confirm and pay</h2>
-                    <a href={mercadoPagoUrl}>
+                    <a href={mercadoPagoUrl} className='flex'>
 
-                    <Button handleClic={hi} className="bg-[#01B1EA] flex justify-center items-center">
+                    <Button className="bg-[#01B1EA] flex justify-center items-center">
                         Pay with{' '}
                         <span className="ml-1">
                             <Image

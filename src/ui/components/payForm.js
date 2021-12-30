@@ -1,11 +1,8 @@
-import React, { useContext, createContext } from 'react'
+import * as React from 'react'
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Button } from '../core/button'
 
 export function PayForm() {
-  const Context = createContext()
-
-  const useStripe = () => useContext(Context)
   const stripe = useStripe()
 
   const elements = useElements()

@@ -8,7 +8,7 @@ export function Button({ className, handleClic, ...props}) {
         className
       )}
       {...props}
-      onClick={ () => handleClic()}
+      
     />
   )
 }
