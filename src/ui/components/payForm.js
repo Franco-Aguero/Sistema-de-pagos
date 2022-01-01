@@ -43,7 +43,7 @@ export function PayForm() {
     <form className="flex flex-col" onSubmit={handleSubmit}>
       <PaymentElement />
       <Button
-        className="bg-[#D71567] mt-6"
+        className="bg-primary mt-6"
         disabled={isLoading || !stripe || !elements}
         id="submit"
       >

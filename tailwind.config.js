@@ -4,7 +4,12 @@ module.exports = {
     purge: ['./src/**/*.js'],
     darkMode: false,
     theme: {
-      extend: {},
+      extend: {
+        colors: {
+          mercadopago: '#01B1EA',
+          primary: '#D71567',
+        },
+      },
     },
     variants: {
       extend: {},
