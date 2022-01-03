@@ -8,7 +8,11 @@ export default function ThanksFailurePage() {
     <Message
       title="Oh no"
       content="Your payment hasn't been received"
-      action={<Button className="bg-primary">Return to home</Button>}
+      action={
+        <a href={process.env.NEXT_PUBLIC_BASE_URL}>
+          <Button className="bg-primary">Return to home</Button>
+        </a>
+      }
       image={<Image src="/img/thanks.png" alt="" width={160} height={160} />}
     />
   )

@@ -9,13 +9,12 @@ import { getLayout } from '../layouts/main';
 
 export default function IndexPage({ mercadoPagoUrl }) {
     const stripeClientSecret = useStripeClientSecret()
-  
     const stripePromise = useStripePromise()
-  
+
     return (
       <div className="flex">
-        <div className="flex space-x-20 mx-auto py-32">
-          <div className="flex flex-col w-[592px]">
+        <div className="flex space-x-20 mx-auto pb-12">
+          <div className="flex flex-col w-[491px]">
             <h2 className="mb-6 text-2xl font-bold">Confirm and pay</h2>
             <a href={mercadoPagoUrl}>
               <Button className="bg-mercadopago flex justify-center items-center w-full">
@@ -104,7 +103,7 @@ export default function IndexPage({ mercadoPagoUrl }) {
       items: [
         {
           id: '00000001',
-          currency_id: 'USD',
+          currency_id: 'ARG',
           title: 'Modern Studio with One Queen Bed',
           quantity: 1,
           unit_price: 132.2,
@@ -113,8 +112,8 @@ export default function IndexPage({ mercadoPagoUrl }) {
       external_reference: '00000001',
       notification_url: 'https://hookb.in/XkKPRnp9wzsDYMQQYapR',
       back_urls: {
-        success: 'http://localhost:3000/thanks/success',
-        failure: 'http://localhost:3000/thanks/failure',
+        success: `${process.env.NEXT_PUBLIC_BASE_URL}/thanks/success`,
+        failure: `${process.env.NEXT_PUBLIC_BASE_URL}/thanks/failure`,
       },
       binary_mode: true,
     })
