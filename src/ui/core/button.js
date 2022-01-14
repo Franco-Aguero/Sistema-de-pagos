@@ -4,7 +4,7 @@ export function Button({ className, handleClic, ...props}) {
   return (
     <button
       className={clsx(
-        'rounded-md h-14 px-6 text-lg font-bold text-white',
+        'rounded-md px-6 text-lg font-bold text-white md:h-12 xl:h-14',
         className
       )}
       {...props}

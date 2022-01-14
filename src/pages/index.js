@@ -13,8 +13,8 @@ export default function IndexPage({ mercadoPagoUrl }) {
 
     return (
       <div className="flex">
-        <div className="flex space-x-20 mx-auto pb-12">
-          <div className="flex flex-col w-[491px]">
+        <div className="md:flex space-x-16 xl:space-x-20 mx-auto pb-12">
+          <div className="flex flex-col md:w-[326px] lg:w-[416px] xl:w-[491px]">
             <h2 className="mb-6 text-2xl font-bold">Confirm and pay</h2>
             <a href={mercadoPagoUrl}>
               <Button className="bg-mercadopago flex justify-center items-center w-full">
@@ -48,21 +48,21 @@ export default function IndexPage({ mercadoPagoUrl }) {
             )}
           </div>
   
-          <div className="flex flex-col w-[491px]">
+          <div className="flex flex-col md:w-[326px] lg:w-[416px] xl:w-[491px]">
             <Image
               src="/img/product.png"
               height={320}
               width={491}
               alt="Modern Studio with One Queen Bed"
             />
-            <p className="flex justify-between items-center my-6">
+            <p className="flex justify-between items-center my-6 gap-x-4">
               <span>Modern Studio with One Queen Bed</span>
               <span className="text-sm">Miami Beach, Florida</span>
             </p>
             <Divider />
             <div className="flex flex-col mt-6">
-              <h5 className="font-bold mb-6">Price details</h5>
-              <div className="flex flex-col space-y-4">
+              <h5 className="font-bold md:mb-4 xl:mb-6">Price details</h5>
+              <div className="flex flex-col md:space-y-2 xl:space-y-4">
                 <div className="flex text-sm">
                   <span className="flex-1">$42.00 x 2 nights</span>
                   <span>$84.00</span>
