@@ -61,8 +61,8 @@ export default function IndexPage({ mercadoPagoUrl }) {
             </p>
             <Divider />
             <div className="flex flex-col mt-6">
-              <h5 className="font-bold md:mb-4 xl:mb-6">Price details</h5>
-              <div className="flex flex-col md:space-y-2 xl:space-y-4">
+              <h5 className="font-bold mb-2 md:mb-4 xl:mb-5">Price details</h5>
+              <div className="flex flex-col space-y-1 md:space-y-2">
                 <div className="flex text-sm">
                   <span className="flex-1">$42.00 x 2 nights</span>
                   <span>$84.00</span>
