@@ -12,10 +12,10 @@ export default function IndexPage({ mercadoPagoUrl }) {
     const stripePromise = useStripePromise()
 
     return (
-      <div className="flex">
-        <div className="md:flex space-x-16 xl:space-x-20 mx-auto pb-12">
+      <div className="flex">{/* //flex-row */}
+        <div className="flex flex-col-reverse px-4 md:flex-row gap-x-16 xl:gap-x-20 mx-auto pb-12">
           <div className="flex flex-col md:w-[326px] lg:w-[416px] xl:w-[491px]">
-            <h2 className="mb-6 text-2xl font-bold">Confirm and pay</h2>
+            <h2 className="text-center text-2xl font-bold mb-6 md:text-left">Confirm and pay</h2>
             <a href={mercadoPagoUrl}>
               <Button className="bg-mercadopago flex justify-center items-center w-full">
                 Pay with{' '}
@@ -48,7 +48,7 @@ export default function IndexPage({ mercadoPagoUrl }) {
             )}
           </div>
   
-          <div className="flex flex-col md:w-[326px] lg:w-[416px] xl:w-[491px]">
+          <div className="flex flex-col mb-6 md:mb-0 w-[326px] lg:w-[416px] xl:w-[491px]">
             <Image
               src="/img/product.png"
               height={320}
@@ -92,39 +92,43 @@ export default function IndexPage({ mercadoPagoUrl }) {
   }
   IndexPage.getLayout = getLayout
   
-  export async function getServerSideProps() {
+export async function getServerSideProps() {
     const isProd = process.env.NODE_ENV === 'production'
-  
-    mercadopago.configure({
-      access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN,
-    })
-  
-    const { response } = await mercadopago.preferences.create({
-      items: [
-        {
-          id: '00000001',
-          currency_id: 'ARG',
-          title: 'Modern Studio with One Queen Bed',
-          quantity: 1,
-          unit_price: 132.2,
+  try{
+      mercadopago.configure({
+        access_token: process.env.MERCADO_PAGO_ACCESS_TOKEN,
+      })
+    
+      const { response } = await mercadopago.preferences.create({
+        items: [
+          {
+            id: '00000001',
+            currency_id: 'ARG',
+            title: 'Modern Studio with One Queen Bed',
+            quantity: 1,
+            unit_price: 132.2,
+          },
+        ],
+        external_reference: '00000001',
+        notification_url: 'https://hookb.in/XkKPRnp9wzsDYMQQYapR',
+        back_urls: {
+          success: `${process.env.NEXT_PUBLIC_BASE_URL}/thanks/success`,
+          failure: `${process.env.NEXT_PUBLIC_BASE_URL}/thanks/failure`,
         },
-      ],
-      external_reference: '00000001',
-      notification_url: 'https://hookb.in/XkKPRnp9wzsDYMQQYapR',
-      back_urls: {
-        success: `${process.env.NEXT_PUBLIC_BASE_URL}/thanks/success`,
-        failure: `${process.env.NEXT_PUBLIC_BASE_URL}/thanks/failure`,
-      },
-      binary_mode: true,
-    })
-  
-    const mercadoPagoUrl = isProd
-      ? response.init_point
-      : response.sandbox_init_point
-  
-    return {
-      props: {
-        mercadoPagoUrl,
-      },
-    }
+        binary_mode: true,
+      })
+    
+      const mercadoPagoUrl = isProd
+        ? response.init_point
+        : response.sandbox_init_point
+    
+      return {
+        props: {
+          mercadoPagoUrl,
+        },
+      }
   }
+  catch(err){
+    console.log(err)
+  }
+}
