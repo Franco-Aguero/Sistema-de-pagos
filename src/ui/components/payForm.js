@@ -6,7 +6,7 @@ export function PayForm() {
   const stripe = useStripe()
 
   const elements = useElements()
-
+  elements.update({locale: 'en'})
   const [message, setMessage] = React.useState(null)
   const [isLoading, setIsLoading] = React.useState(false)
 
